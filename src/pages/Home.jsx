@@ -9,6 +9,7 @@ import { ContactSection } from "../components/ContactSection";
 import { Footer } from "../components/Footer";
 import { useEffect, useState } from "react";
 import { ArrowUp } from "lucide-react";
+import { ExperienceSection } from "../components/ExperienceSection";
 
 export const Home = () => {
   const [isDarkMode, setIsDarkMode] = useState(false);
@@ -65,6 +66,7 @@ export const Home = () => {
         <HeroSection />
         <AboutSection />
         <SkillsSection />
+        <ExperienceSection />
         <ProjectsSection />
         <ContactSection />
       </main>
