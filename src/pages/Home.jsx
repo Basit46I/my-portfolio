@@ -7,14 +7,56 @@ import { SkillsSection } from "../components/SkillsSection";
 import { ProjectsSection } from "../components/ProjectsSection";
 import { ContactSection } from "../components/ContactSection";
 import { Footer } from "../components/Footer";
+import { useEffect, useState } from "react";
+import { ArrowUp } from "lucide-react";
 
 export const Home = () => {
+  const [isDarkMode, setIsDarkMode] = useState(false);
+  const [showScrollTop, setShowScrollTop] = useState(false);
+
+  useEffect(() => {
+    const storedTheme = localStorage.getItem("theme");
+    if (storedTheme === "dark") {
+      setIsDarkMode(true);
+      document.documentElement.classList.add("dark");
+    } else {
+      localStorage.setItem("theme", "light");
+      setIsDarkMode(false);
+    }
+  }, []);
+
+  // Detect scroll
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 300) { // show after 300px scroll
+        setShowScrollTop(true);
+      } else {
+        setShowScrollTop(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const toggleTheme = () => {
+    if (isDarkMode) {
+      document.documentElement.classList.remove("dark");
+      localStorage.setItem("theme", "light");
+      setIsDarkMode(false);
+    } else {
+      document.documentElement.classList.add("dark");
+      localStorage.setItem("theme", "dark");
+      setIsDarkMode(true);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
       {/* Theme Toggle */}
-      <ThemeToggle />
+      {/* <ThemeToggle isDarkMode={isDarkMode} toggleTheme={toggleTheme} /> */}
       {/* Background Effects */}
-      <StarBackground />
+      <StarBackground isDarkMode={isDarkMode} />
 
       {/* Navbar */}
       <Navbar />
@@ -29,6 +71,17 @@ export const Home = () => {
 
       {/* Footer */}
       <Footer />
+
+      {/* Scroll to top button */}
+      <a
+        href="#hero"
+        className={`fixed bottom-6 right-6 p-3 rounded-full bg-primary/10 hover:bg-primary/20 text-primary-100 shadow-lg transform transition-all duration-300 ease-in-out
+        ${showScrollTop ? "opacity-100 scale-100" : "opacity-0 scale-90 pointer-events-none"}`}
+      >
+        <ArrowUp size={20} />
+      </a>
+
+
     </div>
   );
 };

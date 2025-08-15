@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 // id, size, x, y, opacity, animationDuration
 // id, size, x, y, delay, animationDuration
 
-export const StarBackground = () => {
+export const StarBackground = ({ isDarkMode }) => {
   const [stars, setStars] = useState([]);
   const [meteors, setMeteors] = useState([]);
 
@@ -64,7 +64,7 @@ export const StarBackground = () => {
       {stars.map((star) => (
         <div
           key={star.id}
-          className="star animate-pulse-subtle"
+          className={`${isDarkMode ? "star" : "light-star"} animate-pulse-subtle`}
           style={{
             width: star.size + "px",
             height: star.size + "px",
@@ -79,7 +79,7 @@ export const StarBackground = () => {
       {meteors.map((meteor) => (
         <div
           key={meteor.id}
-          className="meteor animate-meteor"
+          className={`${isDarkMode ? "meteor" : "light-meteor"} animate-meteor`}
           style={{
             width: meteor.size * 50 + "px",
             height: meteor.size * 2 + "px",
