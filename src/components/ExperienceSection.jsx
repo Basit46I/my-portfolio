@@ -2,16 +2,30 @@ import { ArrowRight, ExternalLink, Github } from "lucide-react";
 
 const timelineData = [
   {
-    date: "2023 - Now",
-    title: "FULL-TIME GRAPHIC DESIGNER & ILLUSTRATOR",
-    description: "",
+    date: "2025 – Present",
+    title: "School – Web Developer",
+    subtitle: "Current Job",
+    description: [
+      "Working in a school environment",
+      "Designing and building a complete school management system",
+      "Full system includes admin, teacher, and student panels",
+      "Developing modules for attendance, results, class management, and documents",
+      "Using Next.js, MongoDB, and JWT authentication for secure access",
+      "End-to-end solution covering student records, exams, scheduling, and more",
+    ],
   },
   {
-    date: "2021 - 2023",
-    title: "STUDENT + FREELANCE DESIGNER",
-    description:
-      "BACHELOR OF FINE ARTS (GRAPHICS COMMUNICATION) • UNIVERSITI SAINS MALAYSIA, PENANG",
-  },
+    date: "2023 – 2024",
+    title: "Irfan Ali – Sustainability Advisor",
+    subtitle: "Trainee Assistant",
+    description: [
+      "Worked on documentation using MS Office",
+      "Assisted in sustainability-related digital tasks",
+      "Performed development tasks in HTML, CSS, JavaScript, PHP",
+      "Participated in confidential projects",
+      "Completed a 1.5-year diploma in Web Development (HTML, CSS, JS, PHP, Laravel)",
+    ],
+  }
 ];
 
 export const ExperienceSection = () => {
@@ -24,94 +38,91 @@ export const ExperienceSection = () => {
         </h2>
 
         <p className="text-center text-muted-foreground mb-12 max-w-2xl mx-auto">
-          Here are some of my recent projects. Each project was carefully
-          crafted with attention to detail, performance, and user experience.
+          My career started as a <span className="font-semibold">Trainee Assistant</span>,
+          where I learned the foundations of web technologies and teamwork.
+          Today, I am applying those skills as a <span className="font-semibold">Web Developer</span>,
+          creating a complete school management system with modern tools like Next.js and MongoDB.
         </p>
 
-        <div className="flex justify-center py-10">
-          {/* Timeline line */}
-          <div className="relative w-px bg-gray-300">
-            {timelineData.map((item, index) => (
-              <div
-                key={index}
-                className="flex flex-col md:flex-row items-center md:items-start mb-16 relative"
-              >
-                {/* Dot */}
-                <div className="absolute left-1/2 -translate-x-1/2 md:left-0 w-5 h-5 bg-gray-300 border-4 border-white rounded-full z-10" />
 
-                {/* Content */}
-                <div className="md:ml-8 mt-8 md:mt-0 max-w-sm bg-white shadow-md rounded-lg p-4">
-                  <p className="text-sm text-gray-500 font-medium">{item.date}</p>
-                  <h3 className="font-bold text-lg mt-1">{item.title}</h3>
-                  {item.description && (
-                    <p className="text-sm text-gray-700 mt-1">{item.description}</p>
-                  )}
+        <div className="flex justify-center py-12">
+          {/* Timeline Line */}
+          <div className="relative w-full max-w-4xl">
+            <div className="absolute left-1/2 top-0 bottom-0 w-1 bg-gray-300 rounded -translate-x-1/2"></div>
+
+            {timelineData.map((item, index) => {
+              const isLeft = index % 2 === 0;
+
+              return (
+                <div
+                  key={index}
+                  className="relative mb-16 flex flex-col md:flex-row items-center md:items-start"
+                >
+                  {/* Dot */}
+                  <div className="absolute left-1/2 -translate-x-1/2 w-6 h-6 bg-background border-4 border-white rounded-full z-10 shadow-md"></div>
+
+                  {/* Desktop layout - Left Side */}
+                  <div
+                    className={`hidden md:flex w-1/2 ${isLeft ? "justify-end pr-6" : "justify-start px-6"
+                      }`}
+                  >
+                    {isLeft ? (
+                      <p className="gradient-border px-6 py-4 card-hover font-semibold text-sm">{item.date}</p>
+                    ) : (
+                      <TimelineCard item={item} />
+                    )}
+                  </div>
+
+                  {/* Desktop layout - Right Side */}
+                  <div
+                    className={`hidden md:flex w-1/2 ${isLeft ? "justify-start px-6" : "justify-end pr-6"
+                      }`}
+                  >
+                    {isLeft ? (
+                      <TimelineCard item={item} />
+                    ) : (
+                      <p className="gradient-border px-6 py-4 card-hover font-semibold text-sm">{item.date}</p>
+                    )}
+                  </div>
+
+                  {/* Mobile layout */}
+                  <div className="md:hidden mt-8 bg-white shadow-md rounded-lg p-6 w-full">
+                    <p className="text-sm text-gray-600 font-medium">{item.date}</p>
+                    <TimelineCard item={item} />
+                  </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
 
-        {/* <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {projects.map((project, key) => (
-            <div
-              key={key}
-              className="group bg-card rounded-lg overflow-hidden shadow-xs card-hover"
-            >
-              <div className="h-48 overflow-hidden">
-                <img
-                  src={project.image}
-                  alt={project.title}
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                />
-              </div>
-
-              <div className="p-6">
-                <div className="flex flex-wrap gap-2 mb-4">
-                  {project.tags.map((tag) => (
-                    <span className="px-2 py-1 text-xs font-medium border rounded-full bg-secondary text-secondary-foreground">
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-
-                <h3 className="text-xl font-semibold mb-1"> {project.title}</h3>
-                <p className="text-muted-foreground text-sm mb-4">
-                  {project.description}
-                </p>
-                <div className="flex justify-between items-center">
-                  <div className="flex space-x-3">
-                    <a
-                      href={project.demoUrl}
-                      target="_blank"
-                      className="text-foreground/80 hover:text-primary transition-colors duration-300"
-                    >
-                      <ExternalLink size={20} />
-                    </a>
-                    <a
-                      href={project.githubUrl}
-                      target="_blank"
-                      className="text-foreground/80 hover:text-primary transition-colors duration-300"
-                    >
-                      <Github size={20} />
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div> */}
-
-        {/* <div className="text-center mt-12">
-          <a
-            className="cosmic-button w-fit flex items-center mx-auto gap-2"
-            target="_blank"
-            href="https://github.com/Basit46I"
-          >
-            Check My Github <ArrowRight size={16} />
-          </a>
-        </div> */}
       </div>
     </section>
   );
 };
+
+function TimelineCard({ item }) {
+  return (
+
+    <div className="gradient-border p-6 card-hover">
+      <div className="flex items-start gap-4">
+        <div className="text-left">
+          <h4 className="font-semibold text-lg"> {item.title}</h4>
+          {
+            item.subtitle && (
+              <p className="text-muted-foreground">{item.subtitle}</p>
+            )
+          }
+
+          <ul className="list-disc mt-3 space-y-2">
+            {item.description.map((point, i) => (
+              <li key={i} className="ml-5">{point}</li>
+            ))}
+          </ul>
+
+        </div>
+      </div>
+    </div>
+
+  );
+}

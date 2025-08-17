@@ -39,23 +39,25 @@ export const SkillsSection = () => {
   const filteredSkills = skills.filter(
     (skill) => activeCategory === "all" || skill.category === activeCategory
   );
+
   return (
-    <section id="skills" className="py-24 px-4 relative bg-secondary/30">
-      <div className="container mx-auto max-w-5xl">
-        <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center">
-          My <span className="text-primary"> Skills</span>
+    <section id="skills" className="py-24 px-4 relative">
+      <div className="container mx-auto max-w-6xl">
+        <h2 className="text-4xl md:text-5xl font-bold mb-16 text-center">
+          My <span className="text-primary">Skills</span>
         </h2>
 
+        {/* Category Filter */}
         <div className="flex flex-wrap justify-center gap-4 mb-12">
           {categories.map((category, key) => (
             <button
               key={key}
               onClick={() => setActiveCategory(category)}
               className={cn(
-                "px-5 py-2 rounded-full transition-colors duration-300 capitalize",
+                "px-6 py-2 rounded-full font-medium transition-all duration-300 capitalize backdrop-blur-md border",
                 activeCategory === category
-                  ? "bg-primary text-primary-foreground"
-                  : "bg-secondary/70 text-forefround hover:bd-secondary"
+                  ? "bg-primary text-primary-foreground shadow-md border-primary"
+                  : "bg-secondary/40 text-foreground hover:bg-secondary/70 border-transparent"
               )}
             >
               {category}
@@ -63,28 +65,39 @@ export const SkillsSection = () => {
           ))}
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {/* Skills Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {filteredSkills.map((skill, key) => (
             <div
               key={key}
-              className="bg-[#0b111e] p-6 rounded-lg shadow-xs flex flex-col items-center justify-center text-center"
+              className="group bg-gradient-to-br from-secondary/40 to-background/40 p-6 rounded-2xl shadow-lg border border-white/10 backdrop-blur-md
+                         flex flex-col items-center justify-center text-center transition-transform duration-300 hover:-translate-y-2 hover:shadow-xl"
             >
-              {/* Icon */}
-              <img
-                src={skill.path}
-                alt={skill.name}
-                className="w-15 h-15 mb-4 bg-white rounded-sm p-2"
-              />
+              {/* Icon with background + glow */}
+              <div className="w-20 h-20 mb-6 flex items-center justify-center rounded-xl bg-white/100 group-hover:shadow-[0_0_15px_rgba(255,255,255,0.4)] transition-all">
+                <img
+                  src={skill.path}
+                  alt={skill.name}
+                  className="w-12 h-12 object-contain"
+                />
+              </div>
 
               {/* Skill Name */}
-              <h3 className="font-semibold text-lg mb-2">{skill.name}</h3>
+              <h3 className="font-semibold text-lg mb-3">{skill.name}</h3>
+
+              {/* Progress bar */}
+              <div className="w-full bg-secondary/50 rounded-full h-2 overflow-hidden">
+                <div
+                  className="bg-primary h-2 rounded-full transition-all duration-500"
+                  style={{ width: `${skill.level}%` }}
+                ></div>
+              </div>
 
               {/* Percentage */}
-              <span className="text-sm text-muted-foreground">{skill.level}%</span>
+              <span className="text-sm text-muted-foreground mt-2">{skill.level}%</span>
             </div>
           ))}
         </div>
-
       </div>
     </section>
   );

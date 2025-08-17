@@ -39,6 +39,8 @@ export const ContactSection = () => {
         <p className="text-center text-muted-foreground mb-12 max-w-2xl mx-auto">
           Have a project in mind or want to collaborate? Feel free to reach out.
           I'm always open to discussing new opportunities.
+          <br />
+          (Note: This form won’t work — but the one I’ll create for you will be fully functional.)
         </p>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
