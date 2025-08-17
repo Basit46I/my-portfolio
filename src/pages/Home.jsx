@@ -12,18 +12,11 @@ import { ArrowUp } from "lucide-react";
 import { ExperienceSection } from "../components/ExperienceSection";
 
 export const Home = () => {
-  const [isDarkMode, setIsDarkMode] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useState(true);
   const [showScrollTop, setShowScrollTop] = useState(false);
 
   useEffect(() => {
-    const storedTheme = localStorage.getItem("theme");
-    if (storedTheme === "dark") {
-      setIsDarkMode(true);
-      document.documentElement.classList.add("dark");
-    } else {
-      localStorage.setItem("theme", "light");
-      setIsDarkMode(false);
-    }
+    document.documentElement.classList.add("dark");
   }, []);
 
   // Detect scroll
@@ -39,6 +32,7 @@ export const Home = () => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+  console.log(isDarkMode);
 
   const toggleTheme = () => {
     if (isDarkMode) {
